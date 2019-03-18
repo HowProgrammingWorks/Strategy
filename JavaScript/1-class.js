@@ -1,18 +1,18 @@
 'use strict';
 
-class Strategy {
+class Renderer {
   render() {
     console.log('Not implemented');
   }
 }
 
-class ConsoleRenderer extends Strategy {
+class ConsoleRenderer extends Renderer {
   render(data) {
     console.table(data);
   }
 }
 
-class WebRenderer extends Strategy {
+class WebRenderer extends Renderer {
   render(data) {
     const keys = Object.keys(data[0]);
     const line = row => '<tr>' +
@@ -29,7 +29,7 @@ class WebRenderer extends Strategy {
   }
 }
 
-class MarkdownRenderer extends Strategy {
+class MarkdownRenderer extends Renderer {
   render(data) {
     const keys = Object.keys(data[0]);
     const line = row => '|' +
@@ -43,19 +43,18 @@ class MarkdownRenderer extends Strategy {
   }
 }
 
-class Context extends Strategy {
-  constructor(strategy) {
-    super();
-    this.strategy = strategy;
+class Context {
+  constructor(renderer) {
+    this.renderer = renderer;
   }
-  render(data) {
-    return this.strategy.render(data);
+  process(data) {
+    return this.renderer.render(data);
   }
 }
 
 // Usage
 
-const non = new Context(new Strategy());
+const non = new Context(new Renderer());
 const con = new Context(new ConsoleRenderer());
 const web = new Context(new WebRenderer());
 const mkd = new Context(new MarkdownRenderer());
@@ -68,7 +67,18 @@ const persons = [
   { name: 'Rene Descartes', city: 'La Haye en Touraine', born: 1596 },
 ];
 
-non.render(persons);
-con.render(persons);
-web.render(persons);
-mkd.render(persons);
+console.group('Abstract Strategy:');
+non.process(persons);
+console.groupEnd();
+
+console.group('\nConsoleRenderer:');
+con.process(persons);
+console.groupEnd();
+
+console.group('\nWebRenderer:');
+web.process(persons);
+console.groupEnd();
+
+console.group('\nMarkdownRenderer');
+mkd.process(persons);
+console.groupEnd();
