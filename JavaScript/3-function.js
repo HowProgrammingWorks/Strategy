@@ -32,14 +32,14 @@ const renderers = {
   },
 };
 
-const context = rendererName => data => {
+const context = rendererName => {
   const renderer = renderers[rendererName] || renderers.abstract;
-  return renderer(data);
+  return data => renderer(data);
 };
 
 // Usage
 
-const non = context('unknown');
+const png = context('png');
 const con = context('console');
 const web = context('web');
 const mkd = context('markdown');
@@ -52,8 +52,8 @@ const persons = [
   { name: 'Rene Descartes', city: 'La Haye en Touraine', born: 1596 },
 ];
 
-console.group('Abstract Strategy:');
-non(persons);
+console.group('Unknown Strategy:');
+png(persons);
 console.groupEnd();
 
 console.group('\nConsoleRenderer:');
@@ -64,6 +64,6 @@ console.group('\nWebRenderer:');
 web(persons);
 console.groupEnd();
 
-console.group('\nMarkdownRenderer');
+console.group('\nMarkdownRenderer:');
 mkd(persons);
 console.groupEnd();
