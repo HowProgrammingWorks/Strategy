@@ -47,6 +47,7 @@ class Context {
   constructor(renderer) {
     this.renderer = renderer;
   }
+
   process(data) {
     return this.renderer.render(data);
   }
