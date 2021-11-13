@@ -26,7 +26,7 @@ console.groupEnd();
 
 console.group('Filter strategy: single word city name');
 {
-  const strategy = person => person.city.split(' ').length === 1;
+  const strategy = (person) => person.city.split(' ').length === 1;
   const res = persons.filter(strategy);
   console.table(res);
 }

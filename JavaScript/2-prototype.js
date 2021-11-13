@@ -18,12 +18,12 @@ function WebRenderer() {}
 
 WebRenderer.prototype.render = function(data) {
   const keys = Object.keys(data[0]);
-  const line = row => '<tr>' +
-    keys.map(key => `<td>${row[key]}</td>`).join('') +
+  const line = (row) => '<tr>' +
+    keys.map((key) => `<td>${row[key]}</td>`).join('') +
     '</tr>';
   const output = [
     '<table><tr>',
-    keys.map(key => `<th>${key}</th>`).join(''),
+    keys.map((key) => `<th>${key}</th>`).join(''),
     '</tr>',
     data.map(line).join(''),
     '</table>',
@@ -37,10 +37,10 @@ function MarkdownRenderer() {}
 
 MarkdownRenderer.prototype.render = function(data) {
   const keys = Object.keys(data[0]);
-  const line = row => '|' +
-    keys.map(key => `${row[key]}`).join('|') + '|\n';
+  const line = (row) => '|' +
+    keys.map((key) => `${row[key]}`).join('|') + '|\n';
   const output = [
-    '|', keys.map(key => `${key}`).join('|'), '|\n',
+    '|', keys.map((key) => `${key}`).join('|'), '|\n',
     '|', keys.map(() => '---').join('|'), '|\n',
     data.map(line).join(''),
   ];
