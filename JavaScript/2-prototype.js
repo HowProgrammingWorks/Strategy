@@ -2,13 +2,13 @@
 
 function Renderer() {}
 
-Renderer.prototype.render = function() {
+Renderer.prototype.render = function () {
   console.log('Not implemented');
 };
 
 function ConsoleRenderer() {}
 
-ConsoleRenderer.prototype.render = function(data) {
+ConsoleRenderer.prototype.render = function (data) {
   console.table(data);
 };
 
@@ -16,11 +16,10 @@ Object.setPrototypeOf(ConsoleRenderer.prototype, Renderer.prototype);
 
 function WebRenderer() {}
 
-WebRenderer.prototype.render = function(data) {
+WebRenderer.prototype.render = function (data) {
   const keys = Object.keys(data[0]);
-  const line = (row) => '<tr>' +
-    keys.map((key) => `<td>${row[key]}</td>`).join('') +
-    '</tr>';
+  const line = (row) =>
+    '<tr>' + keys.map((key) => `<td>${row[key]}</td>`).join('') + '</tr>';
   const output = [
     '<table><tr>',
     keys.map((key) => `<th>${key}</th>`).join(''),
@@ -35,13 +34,17 @@ Object.setPrototypeOf(WebRenderer.prototype, Renderer.prototype);
 
 function MarkdownRenderer() {}
 
-MarkdownRenderer.prototype.render = function(data) {
+MarkdownRenderer.prototype.render = function (data) {
   const keys = Object.keys(data[0]);
-  const line = (row) => '|' +
-    keys.map((key) => `${row[key]}`).join('|') + '|\n';
+  const line = (row) =>
+    '|' + keys.map((key) => `${row[key]}`).join('|') + '|\n';
   const output = [
-    '|', keys.map((key) => `${key}`).join('|'), '|\n',
-    '|', keys.map(() => '---').join('|'), '|\n',
+    '|',
+    keys.map((key) => `${key}`).join('|'),
+    '|\n',
+    '|',
+    keys.map(() => '---').join('|'),
+    '|\n',
     data.map(line).join(''),
   ];
   console.log(output.join(''));
@@ -53,7 +56,7 @@ function Context(renderer) {
   this.renderer = renderer;
 }
 
-Context.prototype.process = function(data) {
+Context.prototype.process = function (data) {
   return this.renderer.render(data);
 };
 
