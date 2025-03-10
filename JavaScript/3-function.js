@@ -1,7 +1,9 @@
 'use strict';
 
-const renderers = {
-  abstract: () => console.log('Not implemented'),
+const RENDERERS = {
+  abstract: () => {
+    console.log('Not implemented');
+  },
 
   console: (data) => {
     console.table(data);
@@ -39,7 +41,7 @@ const renderers = {
 };
 
 const context = (rendererName) => {
-  const renderer = renderers[rendererName] || renderers.abstract;
+  const renderer = RENDERERS[rendererName] || RENDERERS.abstract;
   return (data) => renderer(data);
 };
 
